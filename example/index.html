@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>My Redux</title>
+    <script src="../index.js"></script>
+    <script src="./reducer.js"></script>
+  </head>
+  <body>
+    <p id="result"></p>
+
+    <p>
+      <button id="increase">increase</button>
+      <button id="decrease">decrease</button>
+      <button id="subscribe">subscribe</button>
+    </p>
+    <script>
+      window.onload = () => {
+        let store = createStore(counter, 100);
+        document.getElementById("result").innerHTML = store.getState();
+        const subscribe = store.subscribe(
+          () => (document.getElementById("result").innerHTML = store.getState())
+        );
+        document.getElementById("increase").addEventListener("click", () => {
+          store.dispatch({
+            type: "INCREASE",
+          });
+        });
+        document.getElementById("decrease").addEventListener("click", () => {
+          store.dispatch({
+            type: "DECREASE",
+          });
+        });
+        document.getElementById("subscribe").addEventListener("click", () => {
+          subscribe && subscribe();
+        });
+      };
+    </script>
+  </body>
+</html>
